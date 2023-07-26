@@ -1,0 +1,15 @@
+int x, y;
+x = 5;
+y = x * 2 + 5; 
+bool isGreater; 
+isGreater = y > x;
+if ((x != y) || (x > -2 && y < 30)) 
+{
+    int equationl; 
+    equationl = 3 * x + y;
+}
+else
+{
+    int equation2; 
+    equation2 = -2 * x - 5;
+}

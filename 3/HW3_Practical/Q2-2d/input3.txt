@@ -1,0 +1,12 @@
+bool flag;
+flag = true; 
+int counter; 
+counter = 0;
+while (flag) 
+{
+    counter = counter + 1; 
+    if (counter == 10) 
+    {
+        flag = Iflag; 
+    }
+}

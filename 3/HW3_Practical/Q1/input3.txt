@@ -1,0 +1,6 @@
+x=2
+y= x*2 
+z$ = -3.2
+print(x+y)
+print(x-5*3)
+print(y-2^3)

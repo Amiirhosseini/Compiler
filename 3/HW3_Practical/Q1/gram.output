@@ -1,0 +1,878 @@
+Grammar
+
+    0 $accept: program_input $end
+
+    1 program_input: program_input line
+    2              | %empty
+
+    3 line: NEW_LINE
+
+    4 $@1: %empty
+
+    5 line: $@1 calculation NEW_LINE
+
+    6 $@2: %empty
+
+    7 line: $@2 print NEW_LINE
+
+    8 print: PRINT calculation
+
+    9 calculation: expr
+   10            | assignment
+
+   11 expr: NEG expr
+   12     | NUMBER
+   13     | VARIABLE
+   14     | function
+   15     | expr DIV expr
+   16     | expr MUL expr
+   17     | L_BRACKET expr R_BRACKET
+   18     | expr ADD expr
+   19     | expr SUB expr
+   20     | expr POW expr
+   21     | expr MOD expr
+
+   22 function: log_function
+   23         | trig_function
+
+   24 trig_function: COS expr
+   25              | SIN expr
+   26              | TAN expr
+   27              | COT expr
+
+   28 log_function: LOG expr
+   29             | EXP expr
+
+   30 assignment: VARIABLE EQUALS calculation
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    NUMBER <num> (258) 12
+    L_BRACKET <num> (259) 17
+    R_BRACKET <num> (260) 17
+    DIV <num> (261) 15
+    MUL <num> (262) 16
+    ADD <num> (263) 18
+    SUB <num> (264) 19
+    EQUALS <num> (265) 30
+    POW <num> (266) 20
+    MOD <num> (267) 21
+    LOG <num> (268) 28
+    EXP <num> (269) 29
+    COS <num> (270) 24
+    SIN <num> (271) 25
+    TAN <num> (272) 26
+    COT <num> (273) 27
+    VARIABLE <index> (274) 13 30
+    NEW_LINE <num> (275) 3 5 7
+    PRINT <num> (276) 8
+    NEG <num> (277) 11
+
+
+Nonterminals, with rules where they appear
+
+    $accept (23)
+        on left: 0
+    program_input <num> (24)
+        on left: 1 2
+        on right: 0 1
+    line <num> (25)
+        on left: 3 5 7
+        on right: 1
+    $@1 (26)
+        on left: 4
+        on right: 5
+    $@2 (27)
+        on left: 6
+        on right: 7
+    print <num> (28)
+        on left: 8
+        on right: 7
+    calculation <num> (29)
+        on left: 9 10
+        on right: 5 8 30
+    expr <num> (30)
+        on left: 11 12 13 14 15 16 17 18 19 20 21
+        on right: 9 11 15 16 17 18 19 20 21 24 25 26 27 28 29
+    function <num> (31)
+        on left: 22 23
+        on right: 14
+    trig_function <num> (32)
+        on left: 24 25 26 27
+        on right: 23
+    log_function <num> (33)
+        on left: 28 29
+        on right: 22
+    assignment <num> (34)
+        on left: 30
+        on right: 10
+
+
+State 0
+
+    0 $accept: . program_input $end
+
+    $default  reduce using rule 2 (program_input)
+
+    program_input  go to state 1
+
+
+State 1
+
+    0 $accept: program_input . $end
+    1 program_input: program_input . line
+
+    $end      shift, and go to state 2
+    NEW_LINE  shift, and go to state 3
+
+    PRINT     reduce using rule 6 ($@2)
+    $default  reduce using rule 4 ($@1)
+
+    line  go to state 4
+    $@1   go to state 5
+    $@2   go to state 6
+
+
+State 2
+
+    0 $accept: program_input $end .
+
+    $default  accept
+
+
+State 3
+
+    3 line: NEW_LINE .
+
+    $default  reduce using rule 3 (line)
+
+
+State 4
+
+    1 program_input: program_input line .
+
+    $default  reduce using rule 1 (program_input)
+
+
+State 5
+
+    5 line: $@1 . calculation NEW_LINE
+
+    NUMBER     shift, and go to state 7
+    L_BRACKET  shift, and go to state 8
+    LOG        shift, and go to state 9
+    EXP        shift, and go to state 10
+    COS        shift, and go to state 11
+    SIN        shift, and go to state 12
+    TAN        shift, and go to state 13
+    COT        shift, and go to state 14
+    VARIABLE   shift, and go to state 15
+    NEG        shift, and go to state 16
+
+    calculation    go to state 17
+    expr           go to state 18
+    function       go to state 19
+    trig_function  go to state 20
+    log_function   go to state 21
+    assignment     go to state 22
+
+
+State 6
+
+    7 line: $@2 . print NEW_LINE
+
+    PRINT  shift, and go to state 23
+
+    print  go to state 24
+
+
+State 7
+
+   12 expr: NUMBER .
+
+    $default  reduce using rule 12 (expr)
+
+
+State 8
+
+   17 expr: L_BRACKET . expr R_BRACKET
+
+    NUMBER     shift, and go to state 7
+    L_BRACKET  shift, and go to state 8
+    LOG        shift, and go to state 9
+    EXP        shift, and go to state 10
+    COS        shift, and go to state 11
+    SIN        shift, and go to state 12
+    TAN        shift, and go to state 13
+    COT        shift, and go to state 14
+    VARIABLE   shift, and go to state 25
+    NEG        shift, and go to state 16
+
+    expr           go to state 26
+    function       go to state 19
+    trig_function  go to state 20
+    log_function   go to state 21
+
+
+State 9
+
+   28 log_function: LOG . expr
+
+    NUMBER     shift, and go to state 7
+    L_BRACKET  shift, and go to state 8
+    LOG        shift, and go to state 9
+    EXP        shift, and go to state 10
+    COS        shift, and go to state 11
+    SIN        shift, and go to state 12
+    TAN        shift, and go to state 13
+    COT        shift, and go to state 14
+    VARIABLE   shift, and go to state 25
+    NEG        shift, and go to state 16
+
+    expr           go to state 27
+    function       go to state 19
+    trig_function  go to state 20
+    log_function   go to state 21
+
+
+State 10
+
+   29 log_function: EXP . expr
+
+    NUMBER     shift, and go to state 7
+    L_BRACKET  shift, and go to state 8
+    LOG        shift, and go to state 9
+    EXP        shift, and go to state 10
+    COS        shift, and go to state 11
+    SIN        shift, and go to state 12
+    TAN        shift, and go to state 13
+    COT        shift, and go to state 14
+    VARIABLE   shift, and go to state 25
+    NEG        shift, and go to state 16
+
+    expr           go to state 28
+    function       go to state 19
+    trig_function  go to state 20
+    log_function   go to state 21
+
+
+State 11
+
+   24 trig_function: COS . expr
+
+    NUMBER     shift, and go to state 7
+    L_BRACKET  shift, and go to state 8
+    LOG        shift, and go to state 9
+    EXP        shift, and go to state 10
+    COS        shift, and go to state 11
+    SIN        shift, and go to state 12
+    TAN        shift, and go to state 13
+    COT        shift, and go to state 14
+    VARIABLE   shift, and go to state 25
+    NEG        shift, and go to state 16
+
+    expr           go to state 29
+    function       go to state 19
+    trig_function  go to state 20
+    log_function   go to state 21
+
+
+State 12
+
+   25 trig_function: SIN . expr
+
+    NUMBER     shift, and go to state 7
+    L_BRACKET  shift, and go to state 8
+    LOG        shift, and go to state 9
+    EXP        shift, and go to state 10
+    COS        shift, and go to state 11
+    SIN        shift, and go to state 12
+    TAN        shift, and go to state 13
+    COT        shift, and go to state 14
+    VARIABLE   shift, and go to state 25
+    NEG        shift, and go to state 16
+
+    expr           go to state 30
+    function       go to state 19
+    trig_function  go to state 20
+    log_function   go to state 21
+
+
+State 13
+
+   26 trig_function: TAN . expr
+
+    NUMBER     shift, and go to state 7
+    L_BRACKET  shift, and go to state 8
+    LOG        shift, and go to state 9
+    EXP        shift, and go to state 10
+    COS        shift, and go to state 11
+    SIN        shift, and go to state 12
+    TAN        shift, and go to state 13
+    COT        shift, and go to state 14
+    VARIABLE   shift, and go to state 25
+    NEG        shift, and go to state 16
+
+    expr           go to state 31
+    function       go to state 19
+    trig_function  go to state 20
+    log_function   go to state 21
+
+
+State 14
+
+   27 trig_function: COT . expr
+
+    NUMBER     shift, and go to state 7
+    L_BRACKET  shift, and go to state 8
+    LOG        shift, and go to state 9
+    EXP        shift, and go to state 10
+    COS        shift, and go to state 11
+    SIN        shift, and go to state 12
+    TAN        shift, and go to state 13
+    COT        shift, and go to state 14
+    VARIABLE   shift, and go to state 25
+    NEG        shift, and go to state 16
+
+    expr           go to state 32
+    function       go to state 19
+    trig_function  go to state 20
+    log_function   go to state 21
+
+
+State 15
+
+   13 expr: VARIABLE .
+   30 assignment: VARIABLE . EQUALS calculation
+
+    EQUALS  shift, and go to state 33
+
+    $default  reduce using rule 13 (expr)
+
+
+State 16
+
+   11 expr: NEG . expr
+
+    NUMBER     shift, and go to state 7
+    L_BRACKET  shift, and go to state 8
+    LOG        shift, and go to state 9
+    EXP        shift, and go to state 10
+    COS        shift, and go to state 11
+    SIN        shift, and go to state 12
+    TAN        shift, and go to state 13
+    COT        shift, and go to state 14
+    VARIABLE   shift, and go to state 25
+    NEG        shift, and go to state 16
+
+    expr           go to state 34
+    function       go to state 19
+    trig_function  go to state 20
+    log_function   go to state 21
+
+
+State 17
+
+    5 line: $@1 calculation . NEW_LINE
+
+    NEW_LINE  shift, and go to state 35
+
+
+State 18
+
+    9 calculation: expr .
+   15 expr: expr . DIV expr
+   16     | expr . MUL expr
+   18     | expr . ADD expr
+   19     | expr . SUB expr
+   20     | expr . POW expr
+   21     | expr . MOD expr
+
+    DIV  shift, and go to state 36
+    MUL  shift, and go to state 37
+    ADD  shift, and go to state 38
+    SUB  shift, and go to state 39
+    POW  shift, and go to state 40
+    MOD  shift, and go to state 41
+
+    $default  reduce using rule 9 (calculation)
+
+
+State 19
+
+   14 expr: function .
+
+    $default  reduce using rule 14 (expr)
+
+
+State 20
+
+   23 function: trig_function .
+
+    $default  reduce using rule 23 (function)
+
+
+State 21
+
+   22 function: log_function .
+
+    $default  reduce using rule 22 (function)
+
+
+State 22
+
+   10 calculation: assignment .
+
+    $default  reduce using rule 10 (calculation)
+
+
+State 23
+
+    8 print: PRINT . calculation
+
+    NUMBER     shift, and go to state 7
+    L_BRACKET  shift, and go to state 8
+    LOG        shift, and go to state 9
+    EXP        shift, and go to state 10
+    COS        shift, and go to state 11
+    SIN        shift, and go to state 12
+    TAN        shift, and go to state 13
+    COT        shift, and go to state 14
+    VARIABLE   shift, and go to state 15
+    NEG        shift, and go to state 16
+
+    calculation    go to state 42
+    expr           go to state 18
+    function       go to state 19
+    trig_function  go to state 20
+    log_function   go to state 21
+    assignment     go to state 22
+
+
+State 24
+
+    7 line: $@2 print . NEW_LINE
+
+    NEW_LINE  shift, and go to state 43
+
+
+State 25
+
+   13 expr: VARIABLE .
+
+    $default  reduce using rule 13 (expr)
+
+
+State 26
+
+   15 expr: expr . DIV expr
+   16     | expr . MUL expr
+   17     | L_BRACKET expr . R_BRACKET
+   18     | expr . ADD expr
+   19     | expr . SUB expr
+   20     | expr . POW expr
+   21     | expr . MOD expr
+
+    R_BRACKET  shift, and go to state 44
+    DIV        shift, and go to state 36
+    MUL        shift, and go to state 37
+    ADD        shift, and go to state 38
+    SUB        shift, and go to state 39
+    POW        shift, and go to state 40
+    MOD        shift, and go to state 41
+
+
+State 27
+
+   15 expr: expr . DIV expr
+   16     | expr . MUL expr
+   18     | expr . ADD expr
+   19     | expr . SUB expr
+   20     | expr . POW expr
+   21     | expr . MOD expr
+   28 log_function: LOG expr .
+
+    POW  shift, and go to state 40
+    MOD  shift, and go to state 41
+
+    $default  reduce using rule 28 (log_function)
+
+
+State 28
+
+   15 expr: expr . DIV expr
+   16     | expr . MUL expr
+   18     | expr . ADD expr
+   19     | expr . SUB expr
+   20     | expr . POW expr
+   21     | expr . MOD expr
+   29 log_function: EXP expr .
+
+    POW  shift, and go to state 40
+    MOD  shift, and go to state 41
+
+    $default  reduce using rule 29 (log_function)
+
+
+State 29
+
+   15 expr: expr . DIV expr
+   16     | expr . MUL expr
+   18     | expr . ADD expr
+   19     | expr . SUB expr
+   20     | expr . POW expr
+   21     | expr . MOD expr
+   24 trig_function: COS expr .
+
+    POW  shift, and go to state 40
+    MOD  shift, and go to state 41
+
+    $default  reduce using rule 24 (trig_function)
+
+
+State 30
+
+   15 expr: expr . DIV expr
+   16     | expr . MUL expr
+   18     | expr . ADD expr
+   19     | expr . SUB expr
+   20     | expr . POW expr
+   21     | expr . MOD expr
+   25 trig_function: SIN expr .
+
+    POW  shift, and go to state 40
+    MOD  shift, and go to state 41
+
+    $default  reduce using rule 25 (trig_function)
+
+
+State 31
+
+   15 expr: expr . DIV expr
+   16     | expr . MUL expr
+   18     | expr . ADD expr
+   19     | expr . SUB expr
+   20     | expr . POW expr
+   21     | expr . MOD expr
+   26 trig_function: TAN expr .
+
+    POW  shift, and go to state 40
+    MOD  shift, and go to state 41
+
+    $default  reduce using rule 26 (trig_function)
+
+
+State 32
+
+   15 expr: expr . DIV expr
+   16     | expr . MUL expr
+   18     | expr . ADD expr
+   19     | expr . SUB expr
+   20     | expr . POW expr
+   21     | expr . MOD expr
+   27 trig_function: COT expr .
+
+    POW  shift, and go to state 40
+    MOD  shift, and go to state 41
+
+    $default  reduce using rule 27 (trig_function)
+
+
+State 33
+
+   30 assignment: VARIABLE EQUALS . calculation
+
+    NUMBER     shift, and go to state 7
+    L_BRACKET  shift, and go to state 8
+    LOG        shift, and go to state 9
+    EXP        shift, and go to state 10
+    COS        shift, and go to state 11
+    SIN        shift, and go to state 12
+    TAN        shift, and go to state 13
+    COT        shift, and go to state 14
+    VARIABLE   shift, and go to state 15
+    NEG        shift, and go to state 16
+
+    calculation    go to state 45
+    expr           go to state 18
+    function       go to state 19
+    trig_function  go to state 20
+    log_function   go to state 21
+    assignment     go to state 22
+
+
+State 34
+
+   11 expr: NEG expr .
+   15     | expr . DIV expr
+   16     | expr . MUL expr
+   18     | expr . ADD expr
+   19     | expr . SUB expr
+   20     | expr . POW expr
+   21     | expr . MOD expr
+
+    $default  reduce using rule 11 (expr)
+
+
+State 35
+
+    5 line: $@1 calculation NEW_LINE .
+
+    $default  reduce using rule 5 (line)
+
+
+State 36
+
+   15 expr: expr DIV . expr
+
+    NUMBER     shift, and go to state 7
+    L_BRACKET  shift, and go to state 8
+    LOG        shift, and go to state 9
+    EXP        shift, and go to state 10
+    COS        shift, and go to state 11
+    SIN        shift, and go to state 12
+    TAN        shift, and go to state 13
+    COT        shift, and go to state 14
+    VARIABLE   shift, and go to state 25
+    NEG        shift, and go to state 16
+
+    expr           go to state 46
+    function       go to state 19
+    trig_function  go to state 20
+    log_function   go to state 21
+
+
+State 37
+
+   16 expr: expr MUL . expr
+
+    NUMBER     shift, and go to state 7
+    L_BRACKET  shift, and go to state 8
+    LOG        shift, and go to state 9
+    EXP        shift, and go to state 10
+    COS        shift, and go to state 11
+    SIN        shift, and go to state 12
+    TAN        shift, and go to state 13
+    COT        shift, and go to state 14
+    VARIABLE   shift, and go to state 25
+    NEG        shift, and go to state 16
+
+    expr           go to state 47
+    function       go to state 19
+    trig_function  go to state 20
+    log_function   go to state 21
+
+
+State 38
+
+   18 expr: expr ADD . expr
+
+    NUMBER     shift, and go to state 7
+    L_BRACKET  shift, and go to state 8
+    LOG        shift, and go to state 9
+    EXP        shift, and go to state 10
+    COS        shift, and go to state 11
+    SIN        shift, and go to state 12
+    TAN        shift, and go to state 13
+    COT        shift, and go to state 14
+    VARIABLE   shift, and go to state 25
+    NEG        shift, and go to state 16
+
+    expr           go to state 48
+    function       go to state 19
+    trig_function  go to state 20
+    log_function   go to state 21
+
+
+State 39
+
+   19 expr: expr SUB . expr
+
+    NUMBER     shift, and go to state 7
+    L_BRACKET  shift, and go to state 8
+    LOG        shift, and go to state 9
+    EXP        shift, and go to state 10
+    COS        shift, and go to state 11
+    SIN        shift, and go to state 12
+    TAN        shift, and go to state 13
+    COT        shift, and go to state 14
+    VARIABLE   shift, and go to state 25
+    NEG        shift, and go to state 16
+
+    expr           go to state 49
+    function       go to state 19
+    trig_function  go to state 20
+    log_function   go to state 21
+
+
+State 40
+
+   20 expr: expr POW . expr
+
+    NUMBER     shift, and go to state 7
+    L_BRACKET  shift, and go to state 8
+    LOG        shift, and go to state 9
+    EXP        shift, and go to state 10
+    COS        shift, and go to state 11
+    SIN        shift, and go to state 12
+    TAN        shift, and go to state 13
+    COT        shift, and go to state 14
+    VARIABLE   shift, and go to state 25
+    NEG        shift, and go to state 16
+
+    expr           go to state 50
+    function       go to state 19
+    trig_function  go to state 20
+    log_function   go to state 21
+
+
+State 41
+
+   21 expr: expr MOD . expr
+
+    NUMBER     shift, and go to state 7
+    L_BRACKET  shift, and go to state 8
+    LOG        shift, and go to state 9
+    EXP        shift, and go to state 10
+    COS        shift, and go to state 11
+    SIN        shift, and go to state 12
+    TAN        shift, and go to state 13
+    COT        shift, and go to state 14
+    VARIABLE   shift, and go to state 25
+    NEG        shift, and go to state 16
+
+    expr           go to state 51
+    function       go to state 19
+    trig_function  go to state 20
+    log_function   go to state 21
+
+
+State 42
+
+    8 print: PRINT calculation .
+
+    $default  reduce using rule 8 (print)
+
+
+State 43
+
+    7 line: $@2 print NEW_LINE .
+
+    $default  reduce using rule 7 (line)
+
+
+State 44
+
+   17 expr: L_BRACKET expr R_BRACKET .
+
+    $default  reduce using rule 17 (expr)
+
+
+State 45
+
+   30 assignment: VARIABLE EQUALS calculation .
+
+    $default  reduce using rule 30 (assignment)
+
+
+State 46
+
+   15 expr: expr . DIV expr
+   15     | expr DIV expr .
+   16     | expr . MUL expr
+   18     | expr . ADD expr
+   19     | expr . SUB expr
+   20     | expr . POW expr
+   21     | expr . MOD expr
+
+    POW  shift, and go to state 40
+    MOD  shift, and go to state 41
+
+    $default  reduce using rule 15 (expr)
+
+
+State 47
+
+   15 expr: expr . DIV expr
+   16     | expr . MUL expr
+   16     | expr MUL expr .
+   18     | expr . ADD expr
+   19     | expr . SUB expr
+   20     | expr . POW expr
+   21     | expr . MOD expr
+
+    POW  shift, and go to state 40
+    MOD  shift, and go to state 41
+
+    $default  reduce using rule 16 (expr)
+
+
+State 48
+
+   15 expr: expr . DIV expr
+   16     | expr . MUL expr
+   18     | expr . ADD expr
+   18     | expr ADD expr .
+   19     | expr . SUB expr
+   20     | expr . POW expr
+   21     | expr . MOD expr
+
+    DIV  shift, and go to state 36
+    MUL  shift, and go to state 37
+    POW  shift, and go to state 40
+    MOD  shift, and go to state 41
+
+    $default  reduce using rule 18 (expr)
+
+
+State 49
+
+   15 expr: expr . DIV expr
+   16     | expr . MUL expr
+   18     | expr . ADD expr
+   19     | expr . SUB expr
+   19     | expr SUB expr .
+   20     | expr . POW expr
+   21     | expr . MOD expr
+
+    DIV  shift, and go to state 36
+    MUL  shift, and go to state 37
+    POW  shift, and go to state 40
+    MOD  shift, and go to state 41
+
+    $default  reduce using rule 19 (expr)
+
+
+State 50
+
+   15 expr: expr . DIV expr
+   16     | expr . MUL expr
+   18     | expr . ADD expr
+   19     | expr . SUB expr
+   20     | expr . POW expr
+   20     | expr POW expr .
+   21     | expr . MOD expr
+
+    POW  shift, and go to state 40
+    MOD  shift, and go to state 41
+
+    $default  reduce using rule 20 (expr)
+
+
+State 51
+
+   15 expr: expr . DIV expr
+   16     | expr . MUL expr
+   18     | expr . ADD expr
+   19     | expr . SUB expr
+   20     | expr . POW expr
+   21     | expr . MOD expr
+   21     | expr MOD expr .
+
+    POW  shift, and go to state 40
+    MOD  shift, and go to state 41
+
+    $default  reduce using rule 21 (expr)

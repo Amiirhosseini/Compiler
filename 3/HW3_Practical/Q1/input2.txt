@@ -1,0 +1,8 @@
+x = sin(2.5)
+y = cos(2*x + 10.2)
+print(x)
+print(y)
+print(tan(x))
+print(cot(y))
+print(log(x) * exp(x))
+print(exp(x))

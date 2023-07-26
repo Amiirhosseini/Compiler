@@ -1,0 +1,1164 @@
+Terminals unused in grammar
+
+    OR
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: statements
+
+    2 statements: %empty
+    3           | statements statement
+
+    4 statement: declaration
+    5          | assignment
+    6          | conditional
+    7          | loop
+
+    8 type: INT
+    9     | BOOL
+
+   10 declaration: type identifiers SEMICOLON
+
+   11 identifiers: IDENTIFIER
+   12            | identifiers COMMA IDENTIFIER
+
+   13 assignment: IDENTIFIER ASSIGN expression SEMICOLON
+   14           | type IDENTIFIER ASSIGN expression SEMICOLON
+
+   15 conditional: IF LPAREN expression RPAREN LBRACE statements RBRACE
+   16            | IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+
+   17 loop: WHILE LPAREN expression RPAREN LBRACE statements RBRACE
+
+   18 expression: and_expression
+
+   19 and_expression: equality_expression
+   20               | and_expression AND equality_expression
+
+   21 equality_expression: relational_expression
+   22                    | equality_expression EQ relational_expression
+   23                    | equality_expression NEQ relational_expression
+
+   24 relational_expression: additive_expression
+   25                      | relational_expression LT additive_expression
+   26                      | relational_expression GT additive_expression
+   27                      | relational_expression LTE additive_expression
+   28                      | relational_expression GTE additive_expression
+
+   29 additive_expression: multiplicative_expression
+   30                    | additive_expression PLUS multiplicative_expression
+   31                    | additive_expression MINUS multiplicative_expression
+
+   32 multiplicative_expression: unary_expression
+   33                          | multiplicative_expression TIMES unary_expression
+   34                          | multiplicative_expression DIVIDE unary_expression
+
+   35 unary_expression: primary_expression
+   36                 | NOT unary_expression
+   37                 | MINUS unary_expression
+
+   38 primary_expression: literal
+   39                   | IDENTIFIER
+   40                   | LPAREN expression RPAREN
+
+   41 literal: boolean_literal
+   42        | INTEGER_LITERAL
+
+   43 boolean_literal: TRUE
+   44                | FALSE
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    INT (258) 8
+    BOOL (259) 9
+    IF (260) 15 16
+    ELSE (261) 16
+    WHILE (262) 17
+    TRUE (263) 43
+    FALSE (264) 44
+    OR (265)
+    AND (266) 20
+    ASSIGN (267) 13 14
+    EQ (268) 22
+    NEQ (269) 23
+    LTE (270) 27
+    GTE (271) 28
+    LT (272) 25
+    GT (273) 26
+    PLUS (274) 30
+    MINUS (275) 31 37
+    TIMES (276) 33
+    DIVIDE (277) 34
+    NOT (278) 36
+    LPAREN (279) 15 16 17 40
+    RPAREN (280) 15 16 17 40
+    LBRACE (281) 15 16 17
+    RBRACE (282) 15 16 17
+    SEMICOLON (283) 10 13 14
+    COMMA (284) 12
+    INTEGER_LITERAL <value> (285) 42
+    IDENTIFIER <name> (286) 11 12 13 14 39
+
+
+Nonterminals, with rules where they appear
+
+    $accept (32)
+        on left: 0
+    program (33)
+        on left: 1
+        on right: 0
+    statements (34)
+        on left: 2 3
+        on right: 1 3 15 16 17
+    statement (35)
+        on left: 4 5 6 7
+        on right: 3
+    type (36)
+        on left: 8 9
+        on right: 10 14
+    declaration (37)
+        on left: 10
+        on right: 4
+    identifiers (38)
+        on left: 11 12
+        on right: 10 12
+    assignment (39)
+        on left: 13 14
+        on right: 5
+    conditional (40)
+        on left: 15 16
+        on right: 6
+    loop (41)
+        on left: 17
+        on right: 7
+    expression (42)
+        on left: 18
+        on right: 13 14 15 16 17 40
+    and_expression (43)
+        on left: 19 20
+        on right: 18 20
+    equality_expression (44)
+        on left: 21 22 23
+        on right: 19 20 22 23
+    relational_expression (45)
+        on left: 24 25 26 27 28
+        on right: 21 22 23 25 26 27 28
+    additive_expression (46)
+        on left: 29 30 31
+        on right: 24 25 26 27 28 30 31
+    multiplicative_expression (47)
+        on left: 32 33 34
+        on right: 29 30 31 33 34
+    unary_expression (48)
+        on left: 35 36 37
+        on right: 32 33 34 36 37
+    primary_expression (49)
+        on left: 38 39 40
+        on right: 35
+    literal (50)
+        on left: 41 42
+        on right: 38
+    boolean_literal (51)
+        on left: 43 44
+        on right: 41
+
+
+State 0
+
+    0 $accept: . program $end
+
+    $default  reduce using rule 2 (statements)
+
+    program     go to state 1
+    statements  go to state 2
+
+
+State 1
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 3
+
+
+State 2
+
+    1 program: statements .
+    3 statements: statements . statement
+
+    INT         shift, and go to state 4
+    BOOL        shift, and go to state 5
+    IF          shift, and go to state 6
+    WHILE       shift, and go to state 7
+    IDENTIFIER  shift, and go to state 8
+
+    $default  reduce using rule 1 (program)
+
+    statement    go to state 9
+    type         go to state 10
+    declaration  go to state 11
+    assignment   go to state 12
+    conditional  go to state 13
+    loop         go to state 14
+
+
+State 3
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+State 4
+
+    8 type: INT .
+
+    $default  reduce using rule 8 (type)
+
+
+State 5
+
+    9 type: BOOL .
+
+    $default  reduce using rule 9 (type)
+
+
+State 6
+
+   15 conditional: IF . LPAREN expression RPAREN LBRACE statements RBRACE
+   16            | IF . LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+
+    LPAREN  shift, and go to state 15
+
+
+State 7
+
+   17 loop: WHILE . LPAREN expression RPAREN LBRACE statements RBRACE
+
+    LPAREN  shift, and go to state 16
+
+
+State 8
+
+   13 assignment: IDENTIFIER . ASSIGN expression SEMICOLON
+
+    ASSIGN  shift, and go to state 17
+
+
+State 9
+
+    3 statements: statements statement .
+
+    $default  reduce using rule 3 (statements)
+
+
+State 10
+
+   10 declaration: type . identifiers SEMICOLON
+   14 assignment: type . IDENTIFIER ASSIGN expression SEMICOLON
+
+    IDENTIFIER  shift, and go to state 18
+
+    identifiers  go to state 19
+
+
+State 11
+
+    4 statement: declaration .
+
+    $default  reduce using rule 4 (statement)
+
+
+State 12
+
+    5 statement: assignment .
+
+    $default  reduce using rule 5 (statement)
+
+
+State 13
+
+    6 statement: conditional .
+
+    $default  reduce using rule 6 (statement)
+
+
+State 14
+
+    7 statement: loop .
+
+    $default  reduce using rule 7 (statement)
+
+
+State 15
+
+   15 conditional: IF LPAREN . expression RPAREN LBRACE statements RBRACE
+   16            | IF LPAREN . expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+
+    TRUE             shift, and go to state 20
+    FALSE            shift, and go to state 21
+    MINUS            shift, and go to state 22
+    NOT              shift, and go to state 23
+    LPAREN           shift, and go to state 24
+    INTEGER_LITERAL  shift, and go to state 25
+    IDENTIFIER       shift, and go to state 26
+
+    expression                 go to state 27
+    and_expression             go to state 28
+    equality_expression        go to state 29
+    relational_expression      go to state 30
+    additive_expression        go to state 31
+    multiplicative_expression  go to state 32
+    unary_expression           go to state 33
+    primary_expression         go to state 34
+    literal                    go to state 35
+    boolean_literal            go to state 36
+
+
+State 16
+
+   17 loop: WHILE LPAREN . expression RPAREN LBRACE statements RBRACE
+
+    TRUE             shift, and go to state 20
+    FALSE            shift, and go to state 21
+    MINUS            shift, and go to state 22
+    NOT              shift, and go to state 23
+    LPAREN           shift, and go to state 24
+    INTEGER_LITERAL  shift, and go to state 25
+    IDENTIFIER       shift, and go to state 26
+
+    expression                 go to state 37
+    and_expression             go to state 28
+    equality_expression        go to state 29
+    relational_expression      go to state 30
+    additive_expression        go to state 31
+    multiplicative_expression  go to state 32
+    unary_expression           go to state 33
+    primary_expression         go to state 34
+    literal                    go to state 35
+    boolean_literal            go to state 36
+
+
+State 17
+
+   13 assignment: IDENTIFIER ASSIGN . expression SEMICOLON
+
+    TRUE             shift, and go to state 20
+    FALSE            shift, and go to state 21
+    MINUS            shift, and go to state 22
+    NOT              shift, and go to state 23
+    LPAREN           shift, and go to state 24
+    INTEGER_LITERAL  shift, and go to state 25
+    IDENTIFIER       shift, and go to state 26
+
+    expression                 go to state 38
+    and_expression             go to state 28
+    equality_expression        go to state 29
+    relational_expression      go to state 30
+    additive_expression        go to state 31
+    multiplicative_expression  go to state 32
+    unary_expression           go to state 33
+    primary_expression         go to state 34
+    literal                    go to state 35
+    boolean_literal            go to state 36
+
+
+State 18
+
+   11 identifiers: IDENTIFIER .
+   14 assignment: type IDENTIFIER . ASSIGN expression SEMICOLON
+
+    ASSIGN  shift, and go to state 39
+
+    $default  reduce using rule 11 (identifiers)
+
+
+State 19
+
+   10 declaration: type identifiers . SEMICOLON
+   12 identifiers: identifiers . COMMA IDENTIFIER
+
+    SEMICOLON  shift, and go to state 40
+    COMMA      shift, and go to state 41
+
+
+State 20
+
+   43 boolean_literal: TRUE .
+
+    $default  reduce using rule 43 (boolean_literal)
+
+
+State 21
+
+   44 boolean_literal: FALSE .
+
+    $default  reduce using rule 44 (boolean_literal)
+
+
+State 22
+
+   37 unary_expression: MINUS . unary_expression
+
+    TRUE             shift, and go to state 20
+    FALSE            shift, and go to state 21
+    MINUS            shift, and go to state 22
+    NOT              shift, and go to state 23
+    LPAREN           shift, and go to state 24
+    INTEGER_LITERAL  shift, and go to state 25
+    IDENTIFIER       shift, and go to state 26
+
+    unary_expression    go to state 42
+    primary_expression  go to state 34
+    literal             go to state 35
+    boolean_literal     go to state 36
+
+
+State 23
+
+   36 unary_expression: NOT . unary_expression
+
+    TRUE             shift, and go to state 20
+    FALSE            shift, and go to state 21
+    MINUS            shift, and go to state 22
+    NOT              shift, and go to state 23
+    LPAREN           shift, and go to state 24
+    INTEGER_LITERAL  shift, and go to state 25
+    IDENTIFIER       shift, and go to state 26
+
+    unary_expression    go to state 43
+    primary_expression  go to state 34
+    literal             go to state 35
+    boolean_literal     go to state 36
+
+
+State 24
+
+   40 primary_expression: LPAREN . expression RPAREN
+
+    TRUE             shift, and go to state 20
+    FALSE            shift, and go to state 21
+    MINUS            shift, and go to state 22
+    NOT              shift, and go to state 23
+    LPAREN           shift, and go to state 24
+    INTEGER_LITERAL  shift, and go to state 25
+    IDENTIFIER       shift, and go to state 26
+
+    expression                 go to state 44
+    and_expression             go to state 28
+    equality_expression        go to state 29
+    relational_expression      go to state 30
+    additive_expression        go to state 31
+    multiplicative_expression  go to state 32
+    unary_expression           go to state 33
+    primary_expression         go to state 34
+    literal                    go to state 35
+    boolean_literal            go to state 36
+
+
+State 25
+
+   42 literal: INTEGER_LITERAL .
+
+    $default  reduce using rule 42 (literal)
+
+
+State 26
+
+   39 primary_expression: IDENTIFIER .
+
+    $default  reduce using rule 39 (primary_expression)
+
+
+State 27
+
+   15 conditional: IF LPAREN expression . RPAREN LBRACE statements RBRACE
+   16            | IF LPAREN expression . RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+
+    RPAREN  shift, and go to state 45
+
+
+State 28
+
+   18 expression: and_expression .
+   20 and_expression: and_expression . AND equality_expression
+
+    AND  shift, and go to state 46
+
+    $default  reduce using rule 18 (expression)
+
+
+State 29
+
+   19 and_expression: equality_expression .
+   22 equality_expression: equality_expression . EQ relational_expression
+   23                    | equality_expression . NEQ relational_expression
+
+    EQ   shift, and go to state 47
+    NEQ  shift, and go to state 48
+
+    $default  reduce using rule 19 (and_expression)
+
+
+State 30
+
+   21 equality_expression: relational_expression .
+   25 relational_expression: relational_expression . LT additive_expression
+   26                      | relational_expression . GT additive_expression
+   27                      | relational_expression . LTE additive_expression
+   28                      | relational_expression . GTE additive_expression
+
+    LTE  shift, and go to state 49
+    GTE  shift, and go to state 50
+    LT   shift, and go to state 51
+    GT   shift, and go to state 52
+
+    $default  reduce using rule 21 (equality_expression)
+
+
+State 31
+
+   24 relational_expression: additive_expression .
+   30 additive_expression: additive_expression . PLUS multiplicative_expression
+   31                    | additive_expression . MINUS multiplicative_expression
+
+    PLUS   shift, and go to state 53
+    MINUS  shift, and go to state 54
+
+    $default  reduce using rule 24 (relational_expression)
+
+
+State 32
+
+   29 additive_expression: multiplicative_expression .
+   33 multiplicative_expression: multiplicative_expression . TIMES unary_expression
+   34                          | multiplicative_expression . DIVIDE unary_expression
+
+    TIMES   shift, and go to state 55
+    DIVIDE  shift, and go to state 56
+
+    $default  reduce using rule 29 (additive_expression)
+
+
+State 33
+
+   32 multiplicative_expression: unary_expression .
+
+    $default  reduce using rule 32 (multiplicative_expression)
+
+
+State 34
+
+   35 unary_expression: primary_expression .
+
+    $default  reduce using rule 35 (unary_expression)
+
+
+State 35
+
+   38 primary_expression: literal .
+
+    $default  reduce using rule 38 (primary_expression)
+
+
+State 36
+
+   41 literal: boolean_literal .
+
+    $default  reduce using rule 41 (literal)
+
+
+State 37
+
+   17 loop: WHILE LPAREN expression . RPAREN LBRACE statements RBRACE
+
+    RPAREN  shift, and go to state 57
+
+
+State 38
+
+   13 assignment: IDENTIFIER ASSIGN expression . SEMICOLON
+
+    SEMICOLON  shift, and go to state 58
+
+
+State 39
+
+   14 assignment: type IDENTIFIER ASSIGN . expression SEMICOLON
+
+    TRUE             shift, and go to state 20
+    FALSE            shift, and go to state 21
+    MINUS            shift, and go to state 22
+    NOT              shift, and go to state 23
+    LPAREN           shift, and go to state 24
+    INTEGER_LITERAL  shift, and go to state 25
+    IDENTIFIER       shift, and go to state 26
+
+    expression                 go to state 59
+    and_expression             go to state 28
+    equality_expression        go to state 29
+    relational_expression      go to state 30
+    additive_expression        go to state 31
+    multiplicative_expression  go to state 32
+    unary_expression           go to state 33
+    primary_expression         go to state 34
+    literal                    go to state 35
+    boolean_literal            go to state 36
+
+
+State 40
+
+   10 declaration: type identifiers SEMICOLON .
+
+    $default  reduce using rule 10 (declaration)
+
+
+State 41
+
+   12 identifiers: identifiers COMMA . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 60
+
+
+State 42
+
+   37 unary_expression: MINUS unary_expression .
+
+    $default  reduce using rule 37 (unary_expression)
+
+
+State 43
+
+   36 unary_expression: NOT unary_expression .
+
+    $default  reduce using rule 36 (unary_expression)
+
+
+State 44
+
+   40 primary_expression: LPAREN expression . RPAREN
+
+    RPAREN  shift, and go to state 61
+
+
+State 45
+
+   15 conditional: IF LPAREN expression RPAREN . LBRACE statements RBRACE
+   16            | IF LPAREN expression RPAREN . LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+
+    LBRACE  shift, and go to state 62
+
+
+State 46
+
+   20 and_expression: and_expression AND . equality_expression
+
+    TRUE             shift, and go to state 20
+    FALSE            shift, and go to state 21
+    MINUS            shift, and go to state 22
+    NOT              shift, and go to state 23
+    LPAREN           shift, and go to state 24
+    INTEGER_LITERAL  shift, and go to state 25
+    IDENTIFIER       shift, and go to state 26
+
+    equality_expression        go to state 63
+    relational_expression      go to state 30
+    additive_expression        go to state 31
+    multiplicative_expression  go to state 32
+    unary_expression           go to state 33
+    primary_expression         go to state 34
+    literal                    go to state 35
+    boolean_literal            go to state 36
+
+
+State 47
+
+   22 equality_expression: equality_expression EQ . relational_expression
+
+    TRUE             shift, and go to state 20
+    FALSE            shift, and go to state 21
+    MINUS            shift, and go to state 22
+    NOT              shift, and go to state 23
+    LPAREN           shift, and go to state 24
+    INTEGER_LITERAL  shift, and go to state 25
+    IDENTIFIER       shift, and go to state 26
+
+    relational_expression      go to state 64
+    additive_expression        go to state 31
+    multiplicative_expression  go to state 32
+    unary_expression           go to state 33
+    primary_expression         go to state 34
+    literal                    go to state 35
+    boolean_literal            go to state 36
+
+
+State 48
+
+   23 equality_expression: equality_expression NEQ . relational_expression
+
+    TRUE             shift, and go to state 20
+    FALSE            shift, and go to state 21
+    MINUS            shift, and go to state 22
+    NOT              shift, and go to state 23
+    LPAREN           shift, and go to state 24
+    INTEGER_LITERAL  shift, and go to state 25
+    IDENTIFIER       shift, and go to state 26
+
+    relational_expression      go to state 65
+    additive_expression        go to state 31
+    multiplicative_expression  go to state 32
+    unary_expression           go to state 33
+    primary_expression         go to state 34
+    literal                    go to state 35
+    boolean_literal            go to state 36
+
+
+State 49
+
+   27 relational_expression: relational_expression LTE . additive_expression
+
+    TRUE             shift, and go to state 20
+    FALSE            shift, and go to state 21
+    MINUS            shift, and go to state 22
+    NOT              shift, and go to state 23
+    LPAREN           shift, and go to state 24
+    INTEGER_LITERAL  shift, and go to state 25
+    IDENTIFIER       shift, and go to state 26
+
+    additive_expression        go to state 66
+    multiplicative_expression  go to state 32
+    unary_expression           go to state 33
+    primary_expression         go to state 34
+    literal                    go to state 35
+    boolean_literal            go to state 36
+
+
+State 50
+
+   28 relational_expression: relational_expression GTE . additive_expression
+
+    TRUE             shift, and go to state 20
+    FALSE            shift, and go to state 21
+    MINUS            shift, and go to state 22
+    NOT              shift, and go to state 23
+    LPAREN           shift, and go to state 24
+    INTEGER_LITERAL  shift, and go to state 25
+    IDENTIFIER       shift, and go to state 26
+
+    additive_expression        go to state 67
+    multiplicative_expression  go to state 32
+    unary_expression           go to state 33
+    primary_expression         go to state 34
+    literal                    go to state 35
+    boolean_literal            go to state 36
+
+
+State 51
+
+   25 relational_expression: relational_expression LT . additive_expression
+
+    TRUE             shift, and go to state 20
+    FALSE            shift, and go to state 21
+    MINUS            shift, and go to state 22
+    NOT              shift, and go to state 23
+    LPAREN           shift, and go to state 24
+    INTEGER_LITERAL  shift, and go to state 25
+    IDENTIFIER       shift, and go to state 26
+
+    additive_expression        go to state 68
+    multiplicative_expression  go to state 32
+    unary_expression           go to state 33
+    primary_expression         go to state 34
+    literal                    go to state 35
+    boolean_literal            go to state 36
+
+
+State 52
+
+   26 relational_expression: relational_expression GT . additive_expression
+
+    TRUE             shift, and go to state 20
+    FALSE            shift, and go to state 21
+    MINUS            shift, and go to state 22
+    NOT              shift, and go to state 23
+    LPAREN           shift, and go to state 24
+    INTEGER_LITERAL  shift, and go to state 25
+    IDENTIFIER       shift, and go to state 26
+
+    additive_expression        go to state 69
+    multiplicative_expression  go to state 32
+    unary_expression           go to state 33
+    primary_expression         go to state 34
+    literal                    go to state 35
+    boolean_literal            go to state 36
+
+
+State 53
+
+   30 additive_expression: additive_expression PLUS . multiplicative_expression
+
+    TRUE             shift, and go to state 20
+    FALSE            shift, and go to state 21
+    MINUS            shift, and go to state 22
+    NOT              shift, and go to state 23
+    LPAREN           shift, and go to state 24
+    INTEGER_LITERAL  shift, and go to state 25
+    IDENTIFIER       shift, and go to state 26
+
+    multiplicative_expression  go to state 70
+    unary_expression           go to state 33
+    primary_expression         go to state 34
+    literal                    go to state 35
+    boolean_literal            go to state 36
+
+
+State 54
+
+   31 additive_expression: additive_expression MINUS . multiplicative_expression
+
+    TRUE             shift, and go to state 20
+    FALSE            shift, and go to state 21
+    MINUS            shift, and go to state 22
+    NOT              shift, and go to state 23
+    LPAREN           shift, and go to state 24
+    INTEGER_LITERAL  shift, and go to state 25
+    IDENTIFIER       shift, and go to state 26
+
+    multiplicative_expression  go to state 71
+    unary_expression           go to state 33
+    primary_expression         go to state 34
+    literal                    go to state 35
+    boolean_literal            go to state 36
+
+
+State 55
+
+   33 multiplicative_expression: multiplicative_expression TIMES . unary_expression
+
+    TRUE             shift, and go to state 20
+    FALSE            shift, and go to state 21
+    MINUS            shift, and go to state 22
+    NOT              shift, and go to state 23
+    LPAREN           shift, and go to state 24
+    INTEGER_LITERAL  shift, and go to state 25
+    IDENTIFIER       shift, and go to state 26
+
+    unary_expression    go to state 72
+    primary_expression  go to state 34
+    literal             go to state 35
+    boolean_literal     go to state 36
+
+
+State 56
+
+   34 multiplicative_expression: multiplicative_expression DIVIDE . unary_expression
+
+    TRUE             shift, and go to state 20
+    FALSE            shift, and go to state 21
+    MINUS            shift, and go to state 22
+    NOT              shift, and go to state 23
+    LPAREN           shift, and go to state 24
+    INTEGER_LITERAL  shift, and go to state 25
+    IDENTIFIER       shift, and go to state 26
+
+    unary_expression    go to state 73
+    primary_expression  go to state 34
+    literal             go to state 35
+    boolean_literal     go to state 36
+
+
+State 57
+
+   17 loop: WHILE LPAREN expression RPAREN . LBRACE statements RBRACE
+
+    LBRACE  shift, and go to state 74
+
+
+State 58
+
+   13 assignment: IDENTIFIER ASSIGN expression SEMICOLON .
+
+    $default  reduce using rule 13 (assignment)
+
+
+State 59
+
+   14 assignment: type IDENTIFIER ASSIGN expression . SEMICOLON
+
+    SEMICOLON  shift, and go to state 75
+
+
+State 60
+
+   12 identifiers: identifiers COMMA IDENTIFIER .
+
+    $default  reduce using rule 12 (identifiers)
+
+
+State 61
+
+   40 primary_expression: LPAREN expression RPAREN .
+
+    $default  reduce using rule 40 (primary_expression)
+
+
+State 62
+
+   15 conditional: IF LPAREN expression RPAREN LBRACE . statements RBRACE
+   16            | IF LPAREN expression RPAREN LBRACE . statements RBRACE ELSE LBRACE statements RBRACE
+
+    $default  reduce using rule 2 (statements)
+
+    statements  go to state 76
+
+
+State 63
+
+   20 and_expression: and_expression AND equality_expression .
+   22 equality_expression: equality_expression . EQ relational_expression
+   23                    | equality_expression . NEQ relational_expression
+
+    EQ   shift, and go to state 47
+    NEQ  shift, and go to state 48
+
+    $default  reduce using rule 20 (and_expression)
+
+
+State 64
+
+   22 equality_expression: equality_expression EQ relational_expression .
+   25 relational_expression: relational_expression . LT additive_expression
+   26                      | relational_expression . GT additive_expression
+   27                      | relational_expression . LTE additive_expression
+   28                      | relational_expression . GTE additive_expression
+
+    LTE  shift, and go to state 49
+    GTE  shift, and go to state 50
+    LT   shift, and go to state 51
+    GT   shift, and go to state 52
+
+    $default  reduce using rule 22 (equality_expression)
+
+
+State 65
+
+   23 equality_expression: equality_expression NEQ relational_expression .
+   25 relational_expression: relational_expression . LT additive_expression
+   26                      | relational_expression . GT additive_expression
+   27                      | relational_expression . LTE additive_expression
+   28                      | relational_expression . GTE additive_expression
+
+    LTE  shift, and go to state 49
+    GTE  shift, and go to state 50
+    LT   shift, and go to state 51
+    GT   shift, and go to state 52
+
+    $default  reduce using rule 23 (equality_expression)
+
+
+State 66
+
+   27 relational_expression: relational_expression LTE additive_expression .
+   30 additive_expression: additive_expression . PLUS multiplicative_expression
+   31                    | additive_expression . MINUS multiplicative_expression
+
+    PLUS   shift, and go to state 53
+    MINUS  shift, and go to state 54
+
+    $default  reduce using rule 27 (relational_expression)
+
+
+State 67
+
+   28 relational_expression: relational_expression GTE additive_expression .
+   30 additive_expression: additive_expression . PLUS multiplicative_expression
+   31                    | additive_expression . MINUS multiplicative_expression
+
+    PLUS   shift, and go to state 53
+    MINUS  shift, and go to state 54
+
+    $default  reduce using rule 28 (relational_expression)
+
+
+State 68
+
+   25 relational_expression: relational_expression LT additive_expression .
+   30 additive_expression: additive_expression . PLUS multiplicative_expression
+   31                    | additive_expression . MINUS multiplicative_expression
+
+    PLUS   shift, and go to state 53
+    MINUS  shift, and go to state 54
+
+    $default  reduce using rule 25 (relational_expression)
+
+
+State 69
+
+   26 relational_expression: relational_expression GT additive_expression .
+   30 additive_expression: additive_expression . PLUS multiplicative_expression
+   31                    | additive_expression . MINUS multiplicative_expression
+
+    PLUS   shift, and go to state 53
+    MINUS  shift, and go to state 54
+
+    $default  reduce using rule 26 (relational_expression)
+
+
+State 70
+
+   30 additive_expression: additive_expression PLUS multiplicative_expression .
+   33 multiplicative_expression: multiplicative_expression . TIMES unary_expression
+   34                          | multiplicative_expression . DIVIDE unary_expression
+
+    TIMES   shift, and go to state 55
+    DIVIDE  shift, and go to state 56
+
+    $default  reduce using rule 30 (additive_expression)
+
+
+State 71
+
+   31 additive_expression: additive_expression MINUS multiplicative_expression .
+   33 multiplicative_expression: multiplicative_expression . TIMES unary_expression
+   34                          | multiplicative_expression . DIVIDE unary_expression
+
+    TIMES   shift, and go to state 55
+    DIVIDE  shift, and go to state 56
+
+    $default  reduce using rule 31 (additive_expression)
+
+
+State 72
+
+   33 multiplicative_expression: multiplicative_expression TIMES unary_expression .
+
+    $default  reduce using rule 33 (multiplicative_expression)
+
+
+State 73
+
+   34 multiplicative_expression: multiplicative_expression DIVIDE unary_expression .
+
+    $default  reduce using rule 34 (multiplicative_expression)
+
+
+State 74
+
+   17 loop: WHILE LPAREN expression RPAREN LBRACE . statements RBRACE
+
+    $default  reduce using rule 2 (statements)
+
+    statements  go to state 77
+
+
+State 75
+
+   14 assignment: type IDENTIFIER ASSIGN expression SEMICOLON .
+
+    $default  reduce using rule 14 (assignment)
+
+
+State 76
+
+    3 statements: statements . statement
+   15 conditional: IF LPAREN expression RPAREN LBRACE statements . RBRACE
+   16            | IF LPAREN expression RPAREN LBRACE statements . RBRACE ELSE LBRACE statements RBRACE
+
+    INT         shift, and go to state 4
+    BOOL        shift, and go to state 5
+    IF          shift, and go to state 6
+    WHILE       shift, and go to state 7
+    RBRACE      shift, and go to state 78
+    IDENTIFIER  shift, and go to state 8
+
+    statement    go to state 9
+    type         go to state 10
+    declaration  go to state 11
+    assignment   go to state 12
+    conditional  go to state 13
+    loop         go to state 14
+
+
+State 77
+
+    3 statements: statements . statement
+   17 loop: WHILE LPAREN expression RPAREN LBRACE statements . RBRACE
+
+    INT         shift, and go to state 4
+    BOOL        shift, and go to state 5
+    IF          shift, and go to state 6
+    WHILE       shift, and go to state 7
+    RBRACE      shift, and go to state 79
+    IDENTIFIER  shift, and go to state 8
+
+    statement    go to state 9
+    type         go to state 10
+    declaration  go to state 11
+    assignment   go to state 12
+    conditional  go to state 13
+    loop         go to state 14
+
+
+State 78
+
+   15 conditional: IF LPAREN expression RPAREN LBRACE statements RBRACE .
+   16            | IF LPAREN expression RPAREN LBRACE statements RBRACE . ELSE LBRACE statements RBRACE
+
+    ELSE  shift, and go to state 80
+
+    $default  reduce using rule 15 (conditional)
+
+
+State 79
+
+   17 loop: WHILE LPAREN expression RPAREN LBRACE statements RBRACE .
+
+    $default  reduce using rule 17 (loop)
+
+
+State 80
+
+   16 conditional: IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE . LBRACE statements RBRACE
+
+    LBRACE  shift, and go to state 81
+
+
+State 81
+
+   16 conditional: IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE . statements RBRACE
+
+    $default  reduce using rule 2 (statements)
+
+    statements  go to state 82
+
+
+State 82
+
+    3 statements: statements . statement
+   16 conditional: IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements . RBRACE
+
+    INT         shift, and go to state 4
+    BOOL        shift, and go to state 5
+    IF          shift, and go to state 6
+    WHILE       shift, and go to state 7
+    RBRACE      shift, and go to state 83
+    IDENTIFIER  shift, and go to state 8
+
+    statement    go to state 9
+    type         go to state 10
+    declaration  go to state 11
+    assignment   go to state 12
+    conditional  go to state 13
+    loop         go to state 14
+
+
+State 83
+
+   16 conditional: IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE .
+
+    $default  reduce using rule 16 (conditional)
