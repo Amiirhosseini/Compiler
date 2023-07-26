@@ -1,0 +1,5 @@
+i int
+b double
+c double
+d double
+character char

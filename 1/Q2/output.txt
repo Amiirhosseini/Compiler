@@ -1,0 +1,1 @@
+Token_xet Token_NewLine Token_Float Token_Space Token_Integer Token_Space Token_String Token_Space Token_String Token_NewLine Id_Token
